@@ -2042,7 +2042,7 @@ MonoBehaviour:
   slopeMultiplier: 1.5
   orientation: {fileID: 2139393655}
   rb: {fileID: 0}
-  sliding: 0
+  sliding: 1
   grounded: 0
   wallRunning: 0
   state: 0
@@ -2215,6 +2215,7 @@ MonoBehaviour:
   whatIsGrappleable:
     serializedVersion: 2
     m_Bits: 5120
+  pc: {fileID: 330585548}
 --- !u!43 &320007010
 Mesh:
   m_ObjectHideFlags: 0

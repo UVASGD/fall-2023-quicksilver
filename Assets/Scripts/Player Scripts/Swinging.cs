@@ -14,6 +14,8 @@ public class Swinging : MonoBehaviour
     public LineRenderer lr;
     public Transform gunTip, cam, player;
     public LayerMask whatIsGrappleable;
+    public PlayerCam pc;
+
 
     private void Update()
     {
@@ -48,11 +50,14 @@ public class Swinging : MonoBehaviour
 
             lr.positionCount = 2;
             currentGrapplePosition = gunTip.position;
+
+            pc.DoFOV(90f);
         }
     }
 
     private void StopSwing()
     {
+        pc.DoFOV(pc.fov);
         lr.positionCount = 0;
         Destroy(joint);
     }
