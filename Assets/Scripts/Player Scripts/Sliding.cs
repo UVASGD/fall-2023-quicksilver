@@ -18,6 +18,9 @@ public class Sliding : MonoBehaviour
     public float slideYScale;
     private float startYScale;
 
+    public bool useDrag;
+    public float drag;
+
     [Header("Keybindings")]
     public KeyCode slideKey = KeyCode.LeftControl;
     private float horizontalInput;
@@ -69,7 +72,13 @@ public class Sliding : MonoBehaviour
         if (!pm.OnSlope() || rb.velocity.y > -0.1f)
         {
             rb.AddForce(inputDirection.normalized * slideForce, ForceMode.Force);
-            slideTimer -= Time.deltaTime; //Sticking timer here allows us to slide down slopes the entire way
+
+            if (useDrag)
+            {
+                //TO DO: add slide drag
+            }
+            else
+                slideTimer -= Time.deltaTime; //Sticking timer here allows us to slide down slopes the entire way
         }
 
         //Sliding Down A Slope
