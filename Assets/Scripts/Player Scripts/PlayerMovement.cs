@@ -32,6 +32,10 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce;
     public float jumpCooldown;
     public float airMultiplier;
+    [Range(0, 1)]
+    public float airDecay;
+    private float airDrag = 1;
+    private float startAirDrag;
 
     [Header("Crouching")]
     public float crouchSpeed;
@@ -85,6 +89,8 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true;
 
         startYScale = transform.localScale.y;
+
+        startAirDrag = airDrag;
     }
 
     private void Update()
@@ -250,11 +256,23 @@ public class PlayerMovement : MonoBehaviour
 
         //On Ground
         else if (grounded)
+        {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-        
+            airDrag = startAirDrag;
+        }
+
         //In Air
         else if (!grounded)
+        {
+            //Handle Air Drag If No Forward Input
+            if (verticalInput == 0)
+            {
+                airDrag -= (airDecay * 0.01f);
+                rb.velocity = new Vector3(rb.velocity.x *  airDrag, rb.velocity.y, rb.velocity.z * airDrag);
+            }
+
             rb.AddForce(moveDirection.normalized * moveSpeed * airMultiplier * 10f, ForceMode.Force);
+        }
 
         //Disable Gravity On Slope (Prevents Sliding)
         if(!wallRunning) rb.useGravity = !OnSlope();
