@@ -24,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
     public float speedIncreaseMultiplier;
     public float slopeIncreaseMultiplier;
 
+    public float strafeDampener;
+
     public float groundDrag;
 
     [Header("Jumping")]
@@ -228,6 +230,12 @@ public class PlayerMovement : MonoBehaviour
     {
         //Calculate Movement Dir
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+        //Dampen Strafe Speed
+        if (horizontalInput != 0 && verticalInput == 0)
+        {
+            moveSpeed *= strafeDampener;
+        }
 
         //On Slope
         if (OnSlope() && !exitingSlope)
