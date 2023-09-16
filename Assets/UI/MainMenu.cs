@@ -7,11 +7,11 @@ public class MainMenu : MonoBehaviour
 {
     public void LoadLevel1()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneSwitcher.LoadNextSceneInBuildOrder();
     }
 
     public void Quit()
     {
-        Application.Quit();
+        SceneSwitcher.Quit();
     }
 }
