@@ -31,7 +31,7 @@ public class MainMenu : MonoBehaviour
 
     public void LevelSelect() // TODO: maybe in the future make this take an int level or maybe enum level as an arg to specifically load a certain level?
     {
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("SampleScene");
     }
 
     public void Quit()
