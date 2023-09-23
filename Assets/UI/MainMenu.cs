@@ -36,7 +36,7 @@ public class MainMenu : MonoBehaviour
 
     public void Quit()
     {
-        Application.Quit();
+        SceneSwitcher.Quit();
     }
 
     // Hide level select and back, show Start and Quit
