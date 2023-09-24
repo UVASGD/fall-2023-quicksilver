@@ -37,6 +37,11 @@ public class PlayerMovement : MonoBehaviour
     private float airDrag = 1;
     private float startAirDrag;
 
+    [Header("Jump Tweaks")]
+    [SerializeField] private float jumpBoostTime = 1;
+    [SerializeField] private float jumpBoostPower = 30;
+    [SerializeField] private float jumpBoostEnd = 100;
+
     [Header("Crouching")]
     public float crouchSpeed;
     public float crouchYScale;
@@ -68,11 +73,6 @@ public class PlayerMovement : MonoBehaviour
     public bool grounded;
     private bool readyToJump;
     public bool wallRunning;
-
-    [Header("Jump Tweaks")]
-    [SerializeField] private float jumpBoostTime = 1;
-    [SerializeField] private float jumpBoostPower = 30;
-    [SerializeField] private float jumpBoostEnd = 100;
 
     public MovementState state;
 
