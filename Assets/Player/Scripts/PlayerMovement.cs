@@ -9,6 +9,9 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode crouchKey = KeyCode.LeftControl;
 
+    [Header("References")]
+    public ParticleSystem ps;
+
     [Header("Movement")]
     public float walkSpeed;
     public float sprintSpeed;
@@ -113,6 +116,16 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = 0;
+
+        //Speed FX
+        if (moveSpeed >= 12)
+        {
+            ps.Play();
+        }
+        else
+        {
+            ps.Stop();
+        }
     }
 
     private void FixedUpdate()
