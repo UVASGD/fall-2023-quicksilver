@@ -9,6 +9,9 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode crouchKey = KeyCode.LeftControl;
 
+    [Header("References")]
+    public ParticleSystem ps;
+
     [Header("Movement")]
     public float walkSpeed;
     public float sprintSpeed;
@@ -36,6 +39,11 @@ public class PlayerMovement : MonoBehaviour
     public float airDecay;
     private float airDrag = 1;
     private float startAirDrag;
+
+    [Header("Jump Tweaks")]
+    [SerializeField] private float jumpBoostTime = 1;
+    [SerializeField] private float jumpBoostPower = 30;
+    [SerializeField] private float jumpBoostEnd = 100;
 
     [Header("Crouching")]
     public float crouchSpeed;
@@ -68,11 +76,6 @@ public class PlayerMovement : MonoBehaviour
     public bool grounded;
     private bool readyToJump;
     public bool wallRunning;
-
-    [Header("Jump Tweaks")]
-    [SerializeField] private float jumpBoostTime = 1;
-    [SerializeField] private float jumpBoostPower = 30;
-    [SerializeField] private float jumpBoostEnd = 100;
 
     public MovementState state;
 
@@ -113,6 +116,16 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = 0;
+
+        //Speed FX
+        if (rb.velocity.magnitude >= 12)
+        {
+            ps.Play();
+        }
+        else
+        {
+            ps.Stop();
+        }
     }
 
     private void FixedUpdate()
