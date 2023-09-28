@@ -118,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = 0;
 
         //Speed FX
-        if (moveSpeed >= 12)
+        if (rb.velocity.magnitude >= 12)
         {
             ps.Play();
         }

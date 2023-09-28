@@ -25,7 +25,8 @@ Material:
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - REQUIRE_DEPTH_TEXTURE
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -74,7 +75,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Main_Texture:
-        m_Texture: {fileID: 2800000, guid: 3222a9c550eb588429237a20c31d4a91, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mask:
@@ -119,6 +120,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - REQUIRE_DEPTH_TEXTURE: 1
     - _AORemapMax: 1
     - _AORemapMin: 0
     - _AlphaClip: 0
@@ -126,6 +128,7 @@ Material:
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
+    - _Brightness: 1
     - _BumpScale: 1
     - _CelRampOffset: 0.5
     - _CelRampSmoothness: 0
@@ -133,6 +136,9 @@ Material:
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
+    - _Depth_Strength: 1
+    - _Depth_Thickness: 0.9
+    - _Depth_Threshold: 1
     - _DetailAlbedoMapScale: 1
     - _DetailAlbedoScale: 1
     - _DetailNormalMapScale: 1
@@ -140,6 +146,7 @@ Material:
     - _DetailSmoothnessScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
+    - _Emissive: 0
     - _EnableDetail: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
@@ -149,6 +156,10 @@ Material:
     - _Metallic: 0
     - _NormalScale: 1
     - _OcclusionStrength: 1
+    - _Offset_X: 0
+    - _Offset_Y: 0
+    - _OutlineThickness: 0.5
+    - _Outline_Thickness: 0.005
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -165,6 +176,8 @@ Material:
     - _Surface: 0
     - _TexWorldScale: 0.5
     - _Texture: 0
+    - _Tiling_X: 1
+    - _Tiling_Y: 1
     - _UVBase: 0
     - _UVDetail: 0
     - _WorkflowMode: 1
@@ -178,5 +191,6 @@ Material:
     - _Color: {r: 1, g: 0.3364779, b: 0.3364779, a: 1}
     - _DetailMap_TO: {r: -0.09, g: 1, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Outline_Color: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

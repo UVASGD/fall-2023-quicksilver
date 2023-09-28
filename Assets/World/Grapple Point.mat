@@ -12,7 +12,8 @@ Material:
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - REQUIRE_DEPTH_TEXTURE
   m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
@@ -90,6 +91,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - REQUIRE_DEPTH_TEXTURE: 1
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0
@@ -102,6 +104,9 @@ Material:
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
+    - _Depth_Strength: 0
+    - _Depth_Thickness: 0
+    - _Depth_Threshold: 0
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
@@ -115,6 +120,8 @@ Material:
     - _OcclusionStrength: 1
     - _Offset_X: 0
     - _Offset_Y: 0
+    - _OutlineThickness: 0.1
+    - _Outline_Thickness: 0.1
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -137,6 +144,7 @@ Material:
     - _CelRampTinting: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 0.28119433, g: 0.6134239, b: 0.6698113, a: 1}
     - _EmissionColor: {r: 0, g: 0.9815155, b: 0.990566, a: 1}
+    - _Outline_Color: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &4226385710919674571
