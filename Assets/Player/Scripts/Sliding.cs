@@ -40,14 +40,15 @@ public class Sliding : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-        if (pm.state != PlayerMovement.MovementState.air)
+        if (Input.GetKey(slideKey))
         {
-            if (Input.GetKeyDown(slideKey) && (horizontalInput != 0 || verticalInput != 0))
+            if ((horizontalInput != 0 || verticalInput != 0) && pm.state != PlayerMovement.MovementState.air)
+            {
                 StartSlide();
-
-            if (Input.GetKeyUp(slideKey) && pm.sliding)
-                StopSlide();
+            }
         }
+        if (Input.GetKeyUp(slideKey) && pm.sliding)
+            StopSlide();
     }
 
     private void FixedUpdate()
