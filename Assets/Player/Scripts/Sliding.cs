@@ -35,18 +35,32 @@ public class Sliding : MonoBehaviour
         startYScale = playerObj.localScale.y;
         slideTimer = maxSlideTime;
     }
-
+    // TODO: prevent continuous slide if player holds slide key
+    // solution for this: keep track of prev state? 
+    // check for Input.GetKey(slideKey) if prevState != sliding
+    // if prevState == sliding, check for Input.GetKeyDown(slideKey) to slide
     private void Update()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-        if (Input.GetKey(slideKey))
+        if (pm.prevState != PlayerMovement.MovementState.sliding)
         {
-            if ((horizontalInput != 0 || verticalInput != 0) && pm.state != PlayerMovement.MovementState.air)
+            if (Input.GetKey(slideKey))
+            {
+                if ((horizontalInput != 0 || verticalInput != 0) && pm.state != PlayerMovement.MovementState.air)
+                {
+                    StartSlide();
+                }
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(slideKey) && (horizontalInput != 0 || verticalInput != 0) && pm.state != PlayerMovement.MovementState.air)
             {
                 StartSlide();
             }
         }
+    
         if (Input.GetKeyUp(slideKey) && pm.sliding)
             StopSlide();
     }

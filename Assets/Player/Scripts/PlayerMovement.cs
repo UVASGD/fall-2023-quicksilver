@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -78,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
     public bool wallRunning;
 
     public MovementState state;
+    public MovementState prevState; // should never equal state after first state change
 
     public enum MovementState
     {
@@ -165,6 +167,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void StateHandler()
     {
+        MovementState stateCheck = state;
         //Mode - WallRunning
         if (wallRunning)
         {
@@ -173,7 +176,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Mode - Sliding
-        else if (sliding && state != MovementState.air)
+        else if (sliding && state != MovementState.air && prevState != MovementState.sliding)
         {
             state = MovementState.sliding;
             if (OnSlope() && rb.velocity.y < 0.1f)
@@ -220,6 +223,10 @@ public class PlayerMovement : MonoBehaviour
             moveSpeed = desiredMoveSpeed;
         }
         lastDesiredMoveSpeed = desiredMoveSpeed;
+        if (stateCheck != prevState)
+        {
+            prevState = stateCheck;
+        }
     }
 
     private IEnumerator LerpMoveSpeed() //Coroutine
