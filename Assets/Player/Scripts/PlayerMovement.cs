@@ -173,7 +173,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Mode - Sliding
-        else if (sliding)
+        else if (sliding && state != MovementState.air)
         {
             state = MovementState.sliding;
             if (OnSlope() && rb.velocity.y < 0.1f)
