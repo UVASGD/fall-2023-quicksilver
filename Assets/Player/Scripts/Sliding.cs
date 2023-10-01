@@ -43,26 +43,19 @@ public class Sliding : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-        if (pm.prevState != PlayerMovement.MovementState.sliding)
+        if (Input.GetKey(slideKey))
         {
-            if (Input.GetKey(slideKey))
+            if ((horizontalInput != 0 || verticalInput != 0) && pm.state != PlayerMovement.MovementState.air && pm.canSlide)
             {
-                if ((horizontalInput != 0 || verticalInput != 0) && pm.state != PlayerMovement.MovementState.air)
-                {
-                    StartSlide();
-                }
-            }
-        }
-        else
-        {
-            if (Input.GetKeyDown(slideKey) && (horizontalInput != 0 || verticalInput != 0) && pm.state != PlayerMovement.MovementState.air)
-            {
+                pm.canSlide = false;
                 StartSlide();
             }
         }
-    
-        if (Input.GetKeyUp(slideKey) && pm.sliding)
-            StopSlide();
+        if (Input.GetKeyUp(slideKey))
+        {
+            pm.canSlide = true;
+            if (pm.sliding) { StopSlide(); }
+        }
     }
 
     private void FixedUpdate()
