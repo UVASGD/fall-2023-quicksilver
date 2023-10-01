@@ -14,7 +14,8 @@ public class TestUI : MonoBehaviour
 
     private void Update()
     {
-        speed.text = "Speed: " + (Mathf.Round(pm.rb.velocity.magnitude * 100f) *0.01f).ToString();
-        state.text = pm.state.ToString();
+        Debug.Log("UI NOT BEING DISPLAYED");
+        //speed.text = "Speed: " + (Mathf.Round(pm.rb.velocity.magnitude * 100f) *0.01f).ToString();
+        //state.text = pm.state.ToString();
     }
 }

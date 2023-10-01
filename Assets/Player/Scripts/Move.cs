@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class Move : MonoBehaviour
 {
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
@@ -29,22 +29,15 @@ public class PlayerMovement : MonoBehaviour
 
     public float strafeDampener;
 
+    [Header("Drag")]
     public float groundDrag;
 
-    [Header("Jumping")]
-    public float jumpForce;
-    public float jumpCooldown;
     public float airMultiplier;
     [Range(0, 1)]
     public float airDecay;
     private float airDrag = 1;
     private float startAirDrag;
-
-    [Header("Jump Tweaks")]
-    [SerializeField] private float jumpBoostTime = 1;
-    [SerializeField] private float jumpBoostPower = 30;
-    [SerializeField] private float jumpBoostEnd = 100;
-
+    
     [Header("Crouching")]
     public float crouchSpeed;
     public float crouchYScale;
@@ -74,7 +67,6 @@ public class PlayerMovement : MonoBehaviour
     [Header("Flags")]
     public bool sliding;
     public bool grounded;
-    private bool readyToJump;
     public bool wallRunning;
 
     public MovementState state;
@@ -93,10 +85,6 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-
-        //jump = GetComponent<Jump>();
-
-        readyToJump = true;
 
         startYScale = transform.localScale.y;
 
@@ -139,17 +127,6 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-
-        //JUMP
-        if (Input.GetKey(jumpKey) && readyToJump && grounded && state != MovementState.air)
-        {
-            readyToJump = false;
-
-            Jump();
-            
-            Invoke(nameof(ResetJump), jumpCooldown);
-        }
-
 
         //CROUCH
         if(Input.GetKeyDown(crouchKey))
@@ -281,20 +258,21 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //In Air
+        
         else if (!grounded)
         {
             //Handle Air Drag If No Forward Input
-            /*if (verticalInput == 0)
+            if (verticalInput == 0)
             {
                 airDrag -= (airDecay * 0.01f);
                 rb.velocity = new Vector3(rb.velocity.x *  airDrag, rb.velocity.y, rb.velocity.z * airDrag);
-            }*/
+            }
 
             rb.velocity = rb.velocity * (1-startAirDrag*Time.deltaTime);
 
             rb.AddForce(moveDirection.normalized * moveSpeed * airMultiplier * 10f, ForceMode.Force);
         }
-
+    
         //Disable Gravity On Slope (Prevents Sliding)
         if(!wallRunning) rb.useGravity = !OnSlope();
     }
@@ -322,44 +300,6 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
-    }
-
-    private void Jump()
-    {
-        exitingSlope = true;
-
-        //Reset y Velocity
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-        StartCoroutine("JumpSustain");
-    }
-    IEnumerator JumpSustain()
-    {
-        float remainingJumpBoost = 0;
-        while(Input.GetKey(jumpKey) && remainingJumpBoost < jumpBoostTime && !sliding)
-        {
-            remainingJumpBoost += Time.deltaTime;
-            rb.AddForce(transform.up * jumpBoostPower * (jumpBoostTime - remainingJumpBoost) * Time.deltaTime, ForceMode.Impulse);
-            yield return new WaitForFixedUpdate();
-        }
-
-        while (rb.velocity.y > 0)
-        {
-            yield return new WaitForFixedUpdate();
-        }
-
-        while(!grounded)
-        {
-            rb.AddForce(-transform.up * jumpBoostEnd * Time.deltaTime);
-            yield return new WaitForFixedUpdate();
-        }
-    }
-    private void ResetJump()
-    {
-        readyToJump = true;
-
-        exitingSlope = false;
     }
 
     public bool OnSlope()
