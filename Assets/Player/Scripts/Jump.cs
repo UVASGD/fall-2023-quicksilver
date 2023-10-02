@@ -62,7 +62,7 @@ public class Jump : MonoBehaviour
             remainingJumpSustain -= Time.fixedDeltaTime;
 
             //add small force to increase jump height
-            rb.AddForce(transform.up * jumpSustainForce * (remainingJumpSustain / maxJumpSustainTime) * Time.deltaTime, ForceMode.Impulse);
+            rb.AddForce(transform.up * jumpSustainForce * (remainingJumpSustain / maxJumpSustainTime), ForceMode.Force);
 
             yield return new WaitForFixedUpdate();
         }

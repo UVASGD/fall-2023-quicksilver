@@ -7,6 +7,16 @@ public class PlayerMovementStateMachine : MonoBehaviour
     //movement scripts
     Jump jump;
     FreeFall freeFall;
+    Normal normal;
+    Move move;
+
+    [Header("States")]
+    public MovementState state = MovementState.falling;
+    public bool grounded = false;
+
+    [Header("Input")]
+    public float horizontalInput = 0;
+    public float verticalInput = 0;
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
@@ -15,14 +25,12 @@ public class PlayerMovementStateMachine : MonoBehaviour
     public float playerHeight;
     public LayerMask groundLayerMask;
 
-    [Header("States")]
-    public MovementState state = MovementState.falling;
-    public bool grounded = false;
 
     void Start()
     {
         jump = GetComponent<Jump>();
         freeFall = GetComponent<FreeFall>();
+        normal = GetComponent<Normal>();
 
         groundLayerMask = LayerMask.GetMask("whatIsGround");
     }
@@ -32,10 +40,12 @@ public class PlayerMovementStateMachine : MonoBehaviour
         //ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, groundLayerMask);
 
+        //get axis input
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
+
         ProcessInput();
 
-        //check for falling (normal doesn't have a coroutine so need to check here)
-        if (state == MovementState.normal && !grounded) initiateFall();
     }
 
     void ProcessInput()
@@ -51,6 +61,11 @@ public class PlayerMovementStateMachine : MonoBehaviour
         }
     }
 
+    void ApplyAWSDMovement()
+    {
+        
+    }
+
     //override transitions
     private void initiateJump()
     {
@@ -64,6 +79,12 @@ public class PlayerMovementStateMachine : MonoBehaviour
         state = MovementState.falling;
         freeFall.StartFall();
     }
+    private void initiateNormal()
+    {
+        endCurrentState();
+        state = MovementState.normal;
+        normal.StartNormal();
+    }
 
     //default transitions
     public void OnJumpCompleted()
@@ -76,6 +97,13 @@ public class PlayerMovementStateMachine : MonoBehaviour
     {
         freeFall.EndFall();
         state = MovementState.normal;
+        normal.StartNormal();
+    }
+    public void OnNormalCompleted()
+    {
+        normal.EndNormal();
+        state = MovementState.falling;
+        freeFall.StartFall();
     }
 
 
@@ -89,6 +117,10 @@ public class PlayerMovementStateMachine : MonoBehaviour
         if (state == MovementState.jumping)
         {
             jump.EndJump();
+        }
+        if (state == MovementState.normal)
+        {
+            normal.EndNormal();
         }
     }
 

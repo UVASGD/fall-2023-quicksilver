@@ -6945,8 +6945,10 @@ GameObject:
   - component: {fileID: 262126590}
   - component: {fileID: 262126598}
   - component: {fileID: 262126599}
+  - component: {fileID: 262126601}
   - component: {fileID: 262126596}
   - component: {fileID: 262126597}
+  - component: {fileID: 262126600}
   - component: {fileID: 262126592}
   - component: {fileID: 262126593}
   - component: {fileID: 262126595}
@@ -7189,7 +7191,7 @@ MonoBehaviour:
   jumping: 0
   jumpKeyStillDown: 0
   initialJumpForce: 10
-  maxJumpSustainTime: 0.4
+  maxJumpSustainTime: 1
   jumpSustainForce: 10
 --- !u!114 &262126597
 MonoBehaviour:
@@ -7217,13 +7219,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52ae5ca7092b43a28c0757a736c2acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
+  grounded: 0
+  horizontalInput: 0
+  verticalInput: 0
   jumpKey: 32
   playerHeight: 2
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 1024
-  state: 1
-  grounded: 0
 --- !u!114 &262126599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7231,7 +7235,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 262126588}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: baf74b564c6754f299b9749523ec6411, type: 3}
   m_Name: 
@@ -7265,6 +7269,41 @@ MonoBehaviour:
   grounded: 0
   wallRunning: 0
   state: 0
+--- !u!114 &262126600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262126588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4587ddc1e221420e97f355c0fda412d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normal: 1
+  stickingForce: 1
+--- !u!114 &262126601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262126588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f91c9ad812ddc459c98145121f698187, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orientation: {fileID: 2139393655}
+  forwardSpeed: 10
+  strafeSpeed: 4
+  backwardSpeed: 4
+  airMultipler: 0.21
+  groundDrag: 0.5
+  airDrag: 0.15
+  stickToGround: 1
+  stickingForce: 10
 --- !u!43 &320007010
 Mesh:
   m_ObjectHideFlags: 0
@@ -30395,7 +30434,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1200959365}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4e1efb026dadace41a1384365b66eec2, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

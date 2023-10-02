@@ -13,10 +13,10 @@ public class FreeFall : MonoBehaviour
     private PlayerMovementStateMachine pm;
     private Rigidbody rb;
 
-    //states
+    [Header("States")]
     public bool falling = false;
 
-    //numbers
+    [Header("Falling")]
     public float extraFallingForce;
 
     void Start()
