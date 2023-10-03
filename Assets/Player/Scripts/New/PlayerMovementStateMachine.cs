@@ -8,7 +8,7 @@ public class PlayerMovementStateMachine : MonoBehaviour
     Jump jump;
     FreeFall freeFall;
     Normal normal;
-    Move move;
+    public Move move;
 
     [Header("States")]
     public MovementState state = MovementState.falling;
@@ -20,10 +20,14 @@ public class PlayerMovementStateMachine : MonoBehaviour
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
+    public KeyCode crouchKey = KeyCode.LeftControl;
 
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask groundLayerMask;
+
+    [Header("Crouch")]
+    [Range(0.1f,1f)] public float crouchYScale;
 
 
     void Start()
@@ -31,6 +35,7 @@ public class PlayerMovementStateMachine : MonoBehaviour
         jump = GetComponent<Jump>();
         freeFall = GetComponent<FreeFall>();
         normal = GetComponent<Normal>();
+        move = GetComponent<Move>();
 
         groundLayerMask = LayerMask.GetMask("whatIsGround");
     }
@@ -46,11 +51,13 @@ public class PlayerMovementStateMachine : MonoBehaviour
 
         ProcessInput();
 
+        //crouch
+        manageCrouch();
     }
 
     void ProcessInput()
     {
-
+        //Jump
         if (Input.GetKeyDown(jumpKey) && grounded)
         {
             initiateJump();
@@ -59,11 +66,7 @@ public class PlayerMovementStateMachine : MonoBehaviour
         {
             jump.JumpKeyReleased();
         }
-    }
 
-    void ApplyAWSDMovement()
-    {
-        
     }
 
     //override transitions
@@ -106,7 +109,6 @@ public class PlayerMovementStateMachine : MonoBehaviour
         freeFall.StartFall();
     }
 
-
     //other/resource/enums
     private void endCurrentState()
     {
@@ -129,6 +131,22 @@ public class PlayerMovementStateMachine : MonoBehaviour
         normal,
         falling,
         jumping
+    }
+
+    public void manageCrouch()
+    {
+        //CROUCH
+        if (Input.GetKeyDown(crouchKey))
+        {
+            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * crouchYScale, transform.localScale.z);
+            move.rb.AddForce(Vector3.down * 5f, ForceMode.Impulse); //Makes Sure Player isn't hovering after crouching
+        }
+
+        //Release Crouch
+        if (Input.GetKeyUp(crouchKey))
+        {
+            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y / crouchYScale, transform.localScale.z);
+        }
     }
 
 }

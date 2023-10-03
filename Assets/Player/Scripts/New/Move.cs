@@ -5,7 +5,7 @@ using UnityEngine;
 public class Move : MonoBehaviour
 {
     private PlayerMovementStateMachine pm;
-    private Rigidbody rb;
+    public Rigidbody rb;
 
     public Transform orientation;
 

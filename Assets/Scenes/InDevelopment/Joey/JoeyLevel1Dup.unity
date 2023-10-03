@@ -6944,7 +6944,6 @@ GameObject:
   - component: {fileID: 262126589}
   - component: {fileID: 262126590}
   - component: {fileID: 262126598}
-  - component: {fileID: 262126599}
   - component: {fileID: 262126601}
   - component: {fileID: 262126596}
   - component: {fileID: 262126597}
@@ -6952,6 +6951,7 @@ GameObject:
   - component: {fileID: 262126592}
   - component: {fileID: 262126593}
   - component: {fileID: 262126595}
+  - component: {fileID: 262126602}
   - component: {fileID: 262126594}
   m_Layer: 0
   m_Name: Player
@@ -7219,56 +7219,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52ae5ca7092b43a28c0757a736c2acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  move: {fileID: 0}
   state: 0
   grounded: 0
   horizontalInput: 0
   verticalInput: 0
   jumpKey: 32
+  crouchKey: 306
   playerHeight: 2
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 1024
---- !u!114 &262126599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 262126588}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: baf74b564c6754f299b9749523ec6411, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpKey: 32
-  sprintKey: 304
-  crouchKey: 99
-  ps: {fileID: 1188408541}
-  walkSpeed: 9
-  sprintSpeed: 12
-  slideSpeed: 30
-  wallRunSpeed: 10.5
-  moveSpeed: 0
-  speedIncreaseMultiplier: 1.5
-  slopeIncreaseMultiplier: 2.5
-  strafeDampener: 0.8
-  groundDrag: 5
-  airMultiplier: 0.5
-  airDecay: 0.1
-  crouchSpeed: 3.5
   crouchYScale: 0.5
-  playerHeight: 2
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 0
-  maxSlopeAngle: 40
-  slopeMultiplier: 1.5
-  orientation: {fileID: 2139393655}
-  rb: {fileID: 0}
-  sliding: 1
-  grounded: 0
-  wallRunning: 0
-  state: 0
 --- !u!114 &262126600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7295,6 +7257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f91c9ad812ddc459c98145121f698187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
   orientation: {fileID: 2139393655}
   forwardSpeed: 10
   strafeSpeed: 4
@@ -7304,6 +7267,19 @@ MonoBehaviour:
   airDrag: 0.15
   stickToGround: 1
   stickingForce: 10
+--- !u!114 &262126602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262126588}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c5c20cb4d4e4a83b03f7cc4e1422d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedLinesPS: {fileID: 0}
 --- !u!43 &320007010
 Mesh:
   m_ObjectHideFlags: 0
@@ -9676,7 +9652,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: {fileID: 256648616}
   state: {fileID: 1008817447}
-  pm: {fileID: 0}
+  pm: {fileID: 262126598}
 --- !u!1 &448918305
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,13 +9,11 @@ public class TestUI : MonoBehaviour
     public TextMeshProUGUI speed;
     public TextMeshProUGUI state;
 
-    public PlayerMovement pm;
-
+    public PlayerMovementStateMachine pm;
 
     private void Update()
     {
-        Debug.Log("UI NOT BEING DISPLAYED");
-        //speed.text = "Speed: " + (Mathf.Round(pm.rb.velocity.magnitude * 100f) *0.01f).ToString();
-        //state.text = pm.state.ToString();
+        speed.text = "Speed: " + (Mathf.Round(pm.move.rb.velocity.magnitude * 100f) *0.01f).ToString();
+        state.text = pm.state.ToString();
     }
 }
