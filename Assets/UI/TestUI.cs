@@ -9,8 +9,7 @@ public class TestUI : MonoBehaviour
     public TextMeshProUGUI speed;
     public TextMeshProUGUI state;
 
-    public PlayerMovement pm;
-
+    public PlayerMovementStateMachine pm;
 
     private void Update()
     {

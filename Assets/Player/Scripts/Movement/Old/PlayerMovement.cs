@@ -97,6 +97,8 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
+        //jump = GetComponent<Jump>();
+
         readyToJump = true;
 
         startYScale = transform.localScale.y;
@@ -147,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
             readyToJump = false;
 
             Jump();
-
+            
             Invoke(nameof(ResetJump), jumpCooldown);
         }
 
@@ -225,7 +227,7 @@ public class PlayerMovement : MonoBehaviour
         }
         lastDesiredMoveSpeed = desiredMoveSpeed;
     }
-
+    //penis
     private IEnumerator LerpMoveSpeed() //Coroutine
     {
         //Interpolates movementSpeed to the Desired Value
@@ -286,11 +288,13 @@ public class PlayerMovement : MonoBehaviour
         else if (!grounded)
         {
             //Handle Air Drag If No Forward Input
-            if (verticalInput == 0)
+            /*if (verticalInput == 0)
             {
                 airDrag -= (airDecay * 0.01f);
                 rb.velocity = new Vector3(rb.velocity.x *  airDrag, rb.velocity.y, rb.velocity.z * airDrag);
-            }
+            }*/
+
+            rb.velocity = rb.velocity * (1-startAirDrag*Time.deltaTime);
 
             rb.AddForce(moveDirection.normalized * moveSpeed * airMultiplier * 10f, ForceMode.Force);
         }
@@ -341,6 +345,11 @@ public class PlayerMovement : MonoBehaviour
         {
             remainingJumpBoost += Time.deltaTime;
             rb.AddForce(transform.up * jumpBoostPower * (jumpBoostTime - remainingJumpBoost) * Time.deltaTime, ForceMode.Impulse);
+            yield return new WaitForFixedUpdate();
+        }
+
+        while (rb.velocity.y > 0)
+        {
             yield return new WaitForFixedUpdate();
         }
 
