@@ -10,18 +10,13 @@ public class Normal : MonoBehaviour
     //Default transitions to FreeFall
 
     private PlayerMovementStateMachine pm;
-    private Rigidbody rb;
 
     [Header("States")]
     public bool normal = false;
 
-    [Header("Normal")]
-    public float stickingForce;
-
     void Start()
     {
         pm = GetComponent<PlayerMovementStateMachine>();
-        rb = GetComponent<Rigidbody>();
     }
 
     public void StartNormal()
@@ -40,6 +35,7 @@ public class Normal : MonoBehaviour
     {
         while (normal && pm.grounded)
         {
+            //awsd and drag handled in Move script
             yield return new WaitForFixedUpdate();
         }
 

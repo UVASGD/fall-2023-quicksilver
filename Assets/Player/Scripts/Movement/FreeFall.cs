@@ -42,8 +42,9 @@ public class FreeFall : MonoBehaviour
         //until landing on the ground
         while (falling && !pm.grounded)
         {
+            //awsd and horizontal drag handled in Move script
             //TODO
-            //drag
+            //vertical drag (to create a falling terminal velocity)
 
             //add extra downward force while moving down
             if (rb.velocity.y < 0)

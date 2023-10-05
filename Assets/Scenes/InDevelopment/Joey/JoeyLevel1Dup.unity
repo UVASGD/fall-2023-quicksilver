@@ -6948,10 +6948,10 @@ GameObject:
   - component: {fileID: 262126596}
   - component: {fileID: 262126597}
   - component: {fileID: 262126600}
-  - component: {fileID: 262126592}
-  - component: {fileID: 262126593}
-  - component: {fileID: 262126595}
-  - component: {fileID: 262126602}
+  - component: {fileID: 262126603}
+  - component: {fileID: 262126605}
+  - component: {fileID: 262126604}
+  - component: {fileID: 262126606}
   - component: {fileID: 262126594}
   m_Layer: 0
   m_Name: Player
@@ -7004,56 +7004,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!114 &262126592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 262126588}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 851bed7fc0f70264cb852912ed4f0a42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  orientation: {fileID: 2139393655}
-  playerObj: {fileID: 1200959366}
-  maxSlideTime: 0.75
-  slideForce: 200
-  slideYScale: 0.5
-  useDrag: 0
-  drag: 0
-  slideKey: 306
---- !u!114 &262126593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 262126588}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94c1d69b29e55264c8c03a74f00f6b1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  whatIsWall:
-    serializedVersion: 2
-    m_Bits: 2048
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 1024
-  wallRunForce: 200
-  wallJumpUpForce: 7
-  wallJumpSideForce: 12
-  maxWallRunTime: 1
-  jumpKey: 32
-  wallCheckDistance: 0.7
-  minJumpHeight: 2
-  RaysToShoot: 3
-  exitWallTime: 0.2
-  useGravity: 1
-  gravityCounterForce: 12
-  orientation: {fileID: 2139393655}
 --- !u!120 &262126594
 LineRenderer:
   serializedVersion: 2
@@ -7156,26 +7106,6 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!114 &262126595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 262126588}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c6c0a94a18bbc498812a5bb12c4c50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lr: {fileID: 262126594}
-  gunTip: {fileID: 558314142}
-  cam: {fileID: 330585546}
-  player: {fileID: 262126589}
-  whatIsGrappleable:
-    serializedVersion: 2
-    m_Bits: 5120
-  pc: {fileID: 330585548}
 --- !u!114 &262126596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7219,13 +7149,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52ae5ca7092b43a28c0757a736c2acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  move: {fileID: 0}
+  orientation: {fileID: 2139393655}
+  playerObj: {fileID: 1200959366}
+  rb: {fileID: 0}
   state: 0
   grounded: 0
   horizontalInput: 0
   verticalInput: 0
   jumpKey: 32
   crouchKey: 306
+  slideKey: 304
   playerHeight: 2
   groundLayerMask:
     serializedVersion: 2
@@ -7244,7 +7177,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normal: 1
-  stickingForce: 1
 --- !u!114 &262126601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7257,17 +7189,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f91c9ad812ddc459c98145121f698187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
-  orientation: {fileID: 2139393655}
   forwardSpeed: 10
-  strafeSpeed: 4
-  backwardSpeed: 4
+  strafeSpeed: 6
+  backwardSpeed: 6
   airMultipler: 0.21
   groundDrag: 0.5
   airDrag: 0.15
   stickToGround: 1
   stickingForce: 10
---- !u!114 &262126602
+--- !u!114 &262126603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262126588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efc2ef5f060d748c8a39676c9db6d9d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sliding: 0
+  slideKeyStillDown: 0
+  boostForce: 10
+  slideDrag: 0.01
+  slideYScale: 0.5
+  minSlidingVelocity: 0.0005
+--- !u!114 &262126604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262126588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b7502c1b07db412d98a4818f8bfbf2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallRunning: 0
+  temp: 0
+--- !u!114 &262126605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262126588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56d75878633e24dc9ac1e8d81ff274a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swinging: 0
+  temp: 0
+--- !u!114 &262126606
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41857,8 +41833,8 @@ Transform:
   m_GameObject: {fileID: 2080154019}
   serializedVersion: 2
   m_LocalRotation: {x: 0.43529662, y: 0.5572404, z: 0.43529662, w: 0.5572404}
-  m_LocalPosition: {x: -21.511456, y: 9.522439, z: 23.796192}
-  m_LocalScale: {x: 1, y: 3.9064, z: 1}
+  m_LocalPosition: {x: -21.511456, y: 13.9, z: 41.5}
+  m_LocalScale: {x: 1, y: 9.2780905, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1277170716}

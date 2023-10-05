@@ -55,6 +55,8 @@ public class Jump : MonoBehaviour
 
     IEnumerator whileJumping()
     {
+        //awsd and drag handled in Move script
+
         //jump sustain
         float remainingJumpSustain = maxJumpSustainTime;
         while (jumping && jumpKeyStillDown && remainingJumpSustain > 0)

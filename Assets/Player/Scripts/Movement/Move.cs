@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Move : MonoBehaviour
 {
-    private PlayerMovementStateMachine pm;
-    public Rigidbody rb;
+    //covers AWSD movement for all MovementStates where it is simple/similar to normal grounded movement
 
-    public Transform orientation;
+    private PlayerMovementStateMachine pm;
+    private Rigidbody rb;
 
     [Header("Speeds")]
     public float forwardSpeed;
@@ -49,13 +49,13 @@ public class Move : MonoBehaviour
     private void MovePlayer(float moveMultiplier)
     {
         //strafe
-        Vector3 moveVector = orientation.right * pm.horizontalInput * strafeSpeed;
+        Vector3 moveVector = pm.orientation.right * pm.horizontalInput * strafeSpeed;
 
         //add front-back
         if (pm.verticalInput > 0)
-            moveVector += orientation.forward * pm.verticalInput * forwardSpeed;
+            moveVector += pm.orientation.forward * pm.verticalInput * forwardSpeed;
         else
-            moveVector += orientation.forward * pm.verticalInput * backwardSpeed;
+            moveVector += pm.orientation.forward * pm.verticalInput * backwardSpeed;
 
         //apply ground adjustments
         moveVector = AdjustIfGrounded(moveVector);
