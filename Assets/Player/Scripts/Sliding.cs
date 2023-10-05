@@ -35,17 +35,23 @@ public class Sliding : MonoBehaviour
         startYScale = playerObj.localScale.y;
         slideTimer = maxSlideTime;
     }
-
     private void Update()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-
-        if (Input.GetKeyDown(slideKey) && (horizontalInput != 0 || verticalInput != 0))
-            StartSlide();
-
-        if (Input.GetKeyUp(slideKey) && pm.sliding)
-            StopSlide();
+        if (Input.GetKey(slideKey))
+        {
+            if ((horizontalInput != 0 || verticalInput != 0) && pm.state != PlayerMovement.MovementState.air && pm.canSlide)
+            {
+                pm.canSlide = false;
+                StartSlide();
+            }
+        }
+        if (Input.GetKeyUp(slideKey))
+        {
+            pm.canSlide = true;
+            if (pm.sliding) { StopSlide(); }
+        }
     }
 
     private void FixedUpdate()

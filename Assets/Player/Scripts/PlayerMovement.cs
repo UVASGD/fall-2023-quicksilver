@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -76,6 +77,7 @@ public class PlayerMovement : MonoBehaviour
     public bool grounded;
     private bool readyToJump;
     public bool wallRunning;
+    public bool canSlide;
 
     public MovementState state;
 
@@ -91,6 +93,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        canSlide = true;
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
@@ -173,7 +176,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Mode - Sliding
-        else if (sliding)
+        else if (sliding && state != MovementState.air)
         {
             state = MovementState.sliding;
             if (OnSlope() && rb.velocity.y < 0.1f)
@@ -206,6 +209,7 @@ public class PlayerMovement : MonoBehaviour
         //Mode - Air
         else
         {
+            canSlide = true;
             state = MovementState.air;
         }
 
