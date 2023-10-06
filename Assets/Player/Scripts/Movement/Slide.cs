@@ -7,7 +7,7 @@ public class Slide : MonoBehaviour
     //handles the state of sliding
     //FROM when the slide button is pressed
     //UNTIL the slide button is released or the slide sustain runs out
-    //By default transitions to normal
+    //By default transitions to FreeFall
 
     private PlayerMovementStateMachine pm;
     private Rigidbody rb;
@@ -21,7 +21,7 @@ public class Slide : MonoBehaviour
     public float downwardBoostForce;
     [Range(0.1f, 1f)] public float slideYScale;
     [Range(0f, 1f)] public float slideDrag;
-    public float slideDownwardForce;
+    public float slidingDownwardForce;
     public float minSlidingVelocity;
 
 
@@ -71,11 +71,11 @@ public class Slide : MonoBehaviour
         {
             //apply drag
             rb.AddForce(-rb.velocity.normalized * slideDrag, ForceMode.Impulse);
-            //apply extra gravity (makes you speed up when going down hills)
-            rb.AddForce(Vector3.down * slideDownwardForce, ForceMode.Impulse);
-            //Vector3 velocityReduction = rb.velocity.normalized * Mathf.Min(0.25f,(2/rb.velocity.magnitude + rb.velocity.magnitude * slideDrag));
-            //rb.velocity -= velocityReduction;
 
+            //apply extra gravity (makes you speed up when going down hills)
+            if (pm.grounded)
+                rb.AddForce(Vector3.down * slidingDownwardForce, ForceMode.Impulse);
+            
             yield return new WaitForFixedUpdate();
         }
 
