@@ -176,9 +176,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sliding: 0
   slideKeyStillDown: 0
-  boostForce: 10
-  slideDrag: 0.01
+  forwardBoostForce: 10
+  downwardBoostForce: 10
   slideYScale: 0.5
+  slideDrag: 0.2
+  slideDownwardForce: 1
   minSlidingVelocity: 0.0005
 --- !u!114 &3795342907853691540
 MonoBehaviour:

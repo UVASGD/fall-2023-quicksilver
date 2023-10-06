@@ -17,9 +17,11 @@ public class Slide : MonoBehaviour
     public bool slideKeyStillDown = false;
 
     [Header("Sliding")]
-    public float boostForce;
-    [Range(0f, 1f)] public float slideDrag;
+    public float forwardBoostForce;
+    public float downwardBoostForce;
     [Range(0.1f, 1f)] public float slideYScale;
+    [Range(0f, 1f)] public float slideDrag;
+    public float slideDownwardForce;
     public float minSlidingVelocity;
 
 
@@ -39,8 +41,8 @@ public class Slide : MonoBehaviour
         pm.playerObj.localScale = new Vector3(pm.playerObj.localScale.x, pm.playerObj.localScale.y * slideYScale, pm.playerObj.localScale.z);
         
         //apply boost
-        //TODO maybe make it so you can slide from slightly in the air and your downward velocity gets added to your boost
-        rb.AddForce(pm.orientation.forward * boostForce, ForceMode.Impulse);
+        //TODO maybe make it so you can slide from slightly in the air so your downward velocity gets added to your boost
+        rb.AddForce(pm.orientation.forward * forwardBoostForce + Vector3.down * downwardBoostForce, ForceMode.Impulse);
 
         //make sure player sticks to ground
         rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
@@ -68,9 +70,11 @@ public class Slide : MonoBehaviour
         while (sliding && slideKeyStillDown && rb.velocity.magnitude > minSlidingVelocity)
         {
             //apply drag
-            //TODO maybe try force based?
-            Vector3 velocityReduction = rb.velocity.normalized * Mathf.Min(0.25f,(2/rb.velocity.magnitude + rb.velocity.magnitude * slideDrag));
-            rb.velocity -= velocityReduction;
+            rb.AddForce(-rb.velocity.normalized * slideDrag, ForceMode.Impulse);
+            //apply extra gravity (makes you speed up when going down hills)
+            rb.AddForce(Vector3.down * slideDownwardForce, ForceMode.Impulse);
+            //Vector3 velocityReduction = rb.velocity.normalized * Mathf.Min(0.25f,(2/rb.velocity.magnitude + rb.velocity.magnitude * slideDrag));
+            //rb.velocity -= velocityReduction;
 
             yield return new WaitForFixedUpdate();
         }
