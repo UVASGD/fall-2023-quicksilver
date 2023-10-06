@@ -83,9 +83,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52ae5ca7092b43a28c0757a736c2acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
   orientation: {fileID: 6935534058490498156}
   playerObj: {fileID: 6550811319970462374}
-  rb: {fileID: 0}
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  grappleableLayerMask:
+    serializedVersion: 2
+    m_Bits: 4096
   state: 0
   grounded: 0
   horizontalInput: 0
@@ -94,9 +100,6 @@ MonoBehaviour:
   crouchKey: 306
   slideKey: 304
   playerHeight: 2
-  groundLayerMask:
-    serializedVersion: 2
-    m_Bits: 1024
   crouchYScale: 0.5
 --- !u!114 &3503966385354523475
 MonoBehaviour:
@@ -176,9 +179,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sliding: 0
   slideKeyStillDown: 0
-  boostForce: 10
-  slideDrag: 0.01
+  forwardBoostForce: 10
+  downwardBoostForce: 10
   slideYScale: 0.5
+  slideDrag: 0.2
+  slidingDownwardForce: 0
   minSlidingVelocity: 0.0005
 --- !u!114 &3795342907853691540
 MonoBehaviour:
@@ -193,7 +198,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swinging: 0
-  temp: 0
+  swingKeyStillDown: 0
+  maxSwingDistance: 25
+  lr: {fileID: 2771465725477305670}
+  gunTip: {fileID: 0}
+  cam: {fileID: 0}
+  player: {fileID: 1748525927913375663}
+  camScript: {fileID: 0}
+  swingPoint: {x: 0, y: 0, z: 0}
 --- !u!114 &7109760062984651816
 MonoBehaviour:
   m_ObjectHideFlags: 0

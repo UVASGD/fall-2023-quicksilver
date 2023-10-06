@@ -5,10 +5,8 @@ using UnityEngine;
 
 public class PlayerMovementStateMachine : MonoBehaviour
 {
-    [Header("References")]
-    public Transform orientation;
-    public Transform playerObj;
     [HideInInspector] public Rigidbody rb;
+
     //movement scripts
     Jump jump;
     FreeFall freeFall;
@@ -16,6 +14,14 @@ public class PlayerMovementStateMachine : MonoBehaviour
     Slide slide;
     Swing swing;
     WallRun wallRun;
+
+    [Header("References")]
+    public Transform orientation;
+    public Transform playerObj;
+
+    [Header("LayerMasks")]
+    public LayerMask groundLayerMask;
+    public LayerMask grappleableLayerMask;
 
     [Header("States")]
     public MovementState state = MovementState.falling;
@@ -32,7 +38,6 @@ public class PlayerMovementStateMachine : MonoBehaviour
 
     [Header("Ground Check")]
     public float playerHeight;
-    public LayerMask groundLayerMask;
 
     [Header("Crouch")]
     [Range(0.1f,1f)] public float crouchYScale;
@@ -79,7 +84,13 @@ public class PlayerMovementStateMachine : MonoBehaviour
             initiateSlide();
         if (Input.GetKeyUp(slideKey))
             slide.SlideKeyReleased();
- 
+
+        //Swing
+        if (Input.GetMouseButtonDown(0) && canSwing())
+            initiateSwing();
+        if (Input.GetMouseButtonUp(0))
+            swing.SwingKeyReleased();
+
     }
 
     //override transitions
@@ -168,7 +179,7 @@ public class PlayerMovementStateMachine : MonoBehaviour
     }
     private bool canSlide()
     {
-        //TODO maybe make it so you can slide from slightly in the air and your downward velocity gets added to your boost
+        //TODO? maybe make it so you can slide from slightly in the air and your downward velocity gets added to your boost
         if (state == MovementState.falling ||
             state == MovementState.jumping ||
             state == MovementState.sliding)
@@ -177,8 +188,14 @@ public class PlayerMovementStateMachine : MonoBehaviour
     }
     private bool canSwing()
     {
-        //TODO
-        return true;
+        RaycastHit hit;
+        //if a raycast in the camera's facing direction hits a close enough grabbleable surface
+        if (Physics.Raycast(swing.cam.position, swing.cam.forward, out hit, swing.maxSwingDistance, grappleableLayerMask))
+        {
+            swing.swingPoint = hit.point;
+            return true;
+        }
+        return false;
     }
     private bool canWallRun()
     {
