@@ -190,7 +190,7 @@ public class PlayerMovementStateMachine : MonoBehaviour
     {
         RaycastHit hit;
         //if a raycast in the camera's facing direction hits a close enough grabbleable surface
-        if (Physics.Raycast(swing.cam.position, swing.cam.forward, out hit, swing.maxSwingDistance, grappleableLayerMask))
+        if (Physics.Raycast(swing.cam.position, swing.cam.forward, out hit, swing.maxRopeLength, grappleableLayerMask))
         {
             swing.swingPoint = hit.point;
             return true;

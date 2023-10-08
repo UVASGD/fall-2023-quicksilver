@@ -17,6 +17,10 @@ public class PlayerCam : MonoBehaviour
 
     float xRotation;
     float yRotation;
+
+    //for debug
+    bool tracking = true;
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -25,6 +29,11 @@ public class PlayerCam : MonoBehaviour
 
     void Update()
     {
+        //for debug
+        if (Input.GetKeyDown(KeyCode.Escape)) tracking = false;
+        if (Input.GetMouseButtonDown(0)) tracking = true;
+        if (!tracking) return;
+
         //Get Mouse Input
         float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
         float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
