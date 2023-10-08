@@ -43,13 +43,14 @@ public class FreeFall : MonoBehaviour
         while (falling && !pm.grounded)
         {
             //awsd and horizontal drag handled in Move script
+
             //TODO
             //vertical drag (to create a falling terminal velocity)
 
             //add extra downward force while moving down
             if (rb.velocity.y < 0)
             {
-                rb.AddForce(-transform.up * extraFallingForce * Time.deltaTime, ForceMode.Impulse);
+                rb.AddForce(Vector3.down * extraFallingForce * Time.deltaTime, ForceMode.Impulse);
             }
             
             yield return new WaitForFixedUpdate();

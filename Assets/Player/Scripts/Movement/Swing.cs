@@ -6,7 +6,7 @@ public class Swing : MonoBehaviour
 {
     //handles the state of swinging
     //FROM successfully engaging a grapple
-    //UNTIL grapple relseased OR TODO (grounded? time? speed?)
+    //UNTIL grapple relseased OR TODO (grounded?)
     //Default transitions to FreeFall
 
     private PlayerMovementStateMachine pm;
@@ -17,7 +17,9 @@ public class Swing : MonoBehaviour
     public bool swingKeyStillDown = false;
 
     [Header("Swinging")]
-    public float maxSwingDistance = 25f;
+    public float grappleRange = 25f;
+    [Range(0, 1)] public float pullDuringSwing = 0.1f;
+    public float extraFallingForce = 10;
 
     [Header("References")]
     public LineRenderer lr;
@@ -27,7 +29,6 @@ public class Swing : MonoBehaviour
     //for calculations
     [HideInInspector] public Vector3 swingPoint;
     private SpringJoint joint;
-    //private Vector3 currentGrapplePosition;
 
     void Start()
     {
@@ -49,8 +50,8 @@ public class Swing : MonoBehaviour
 
         //set range that the joint will try to maintain
         float distanceFromSwingPoint = Vector3.Distance(player.position, swingPoint);
-        joint.maxDistance = distanceFromSwingPoint * 0.8f;
-        joint.minDistance = distanceFromSwingPoint * 0.25f;
+        joint.maxDistance = distanceFromSwingPoint * (1-pullDuringSwing);
+        joint.minDistance = 0;
 
         //set joint constants
         joint.spring = 4.5f;
@@ -59,7 +60,6 @@ public class Swing : MonoBehaviour
 
         //prepare line renderer (for showing the rope)
         lr.positionCount = 2;
-        //currentGrapplePosition = gunTip.position;
 
         //change the FOV
         camScript.DoFOV(90f);
@@ -91,6 +91,11 @@ public class Swing : MonoBehaviour
     {
         while (swinging && swingKeyStillDown)
         {
+            //add extra downward force while moving down
+            if (rb.velocity.y < 0)
+            {
+                rb.AddForce(Vector3.down * extraFallingForce * Time.deltaTime, ForceMode.Impulse);
+            }
             yield return new WaitForFixedUpdate();
         }
 
@@ -110,9 +115,6 @@ public class Swing : MonoBehaviour
     {
         //check if joint is active
         if (!swinging) return;
-
-        //@Nate wtf is this line
-        //currentGrapplePosition = Vector3.Lerp(currentGrapplePosition, swingPoint, Time.deltaTime * 8f);
 
         //move the line renderer
         lr.SetPosition(0, gunTip.position);
