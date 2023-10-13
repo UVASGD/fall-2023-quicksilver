@@ -27,7 +27,6 @@ public class Swing : MonoBehaviour
     //for calculations
     [HideInInspector] public Vector3 swingPoint;
     private SpringJoint joint;
-    //private Vector3 currentGrapplePosition;
 
     void Start()
     {
@@ -50,7 +49,7 @@ public class Swing : MonoBehaviour
         //set range that the joint will try to maintain
         float distanceFromSwingPoint = Vector3.Distance(player.position, swingPoint);
         joint.maxDistance = distanceFromSwingPoint * 0.8f;
-        joint.minDistance = distanceFromSwingPoint * 0.25f;
+        joint.minDistance = 0;
 
         //set joint constants
         joint.spring = 4.5f;
@@ -59,7 +58,6 @@ public class Swing : MonoBehaviour
 
         //prepare line renderer (for showing the rope)
         lr.positionCount = 2;
-        //currentGrapplePosition = gunTip.position;
 
         //change the FOV
         camScript.DoFOV(90f);
@@ -110,9 +108,6 @@ public class Swing : MonoBehaviour
     {
         //check if joint is active
         if (!swinging) return;
-
-        //@Nate wtf is this line
-        //currentGrapplePosition = Vector3.Lerp(currentGrapplePosition, swingPoint, Time.deltaTime * 8f);
 
         //move the line renderer
         lr.SetPosition(0, gunTip.position);
