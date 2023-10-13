@@ -21,7 +21,8 @@ public class Move : MonoBehaviour
 
     [Header("Drags")]
     [Range(0, 1)] public float groundDrag;
-    [Range(0, 0.05f)] public float airDrag;
+    [Range(0, 0.01f)] public float airDrag;
+    [Range(0, 0.01f)] public float verticalFallingDrag;
 
     [Header("Stick to Ground")]
     public bool stickToGround;
@@ -109,17 +110,30 @@ public class Move : MonoBehaviour
     private void ApplyDrag()
     {
         if (pm.state == PlayerMovementStateMachine.MovementState.normal)
-            ApplyDrag(groundDrag);
-        if (pm.state == PlayerMovementStateMachine.MovementState.falling)
-            ApplyDrag(airDrag);
+            ApplyLinearDrag(groundDrag);
         if (pm.state == PlayerMovementStateMachine.MovementState.jumping)
-            ApplyDrag(airDrag);
+            ApplySquareDrag(airDrag);
+        if (pm.state == PlayerMovementStateMachine.MovementState.falling)
+        {
+            ApplySquareDrag(airDrag);
+            ApplyVerticalFallingDrag();
+        }
     }
 
-    private void ApplyDrag(float drag)
+    private void ApplyLinearDrag(float drag)
     {
-        Vector3 moveVel = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-        rb.velocity -= moveVel * drag;
+        Vector3 horVel = pm.getHorVel();
+        rb.velocity -= horVel * drag;
+    }
+    private void ApplySquareDrag(float drag)
+    {
+        Vector3 horVel = pm.getHorVel();
+        rb.velocity -= horVel * horVel.magnitude * drag;
+    }
+    private void ApplyVerticalFallingDrag()
+    {
+        if (rb.velocity.y > 0) return;
+        rb.velocity += Vector3.up * Mathf.Pow(rb.velocity.y, 4) * verticalFallingDrag * Mathf.Pow(10,-4);
     }
 
 }

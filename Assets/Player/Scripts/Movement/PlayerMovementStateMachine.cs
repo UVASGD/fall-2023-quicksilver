@@ -256,4 +256,9 @@ public class PlayerMovementStateMachine : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y / crouchYScale, transform.localScale.z);
         }
     }
+
+    public Vector3 getHorVel()
+    {
+        return Vector3.ProjectOnPlane(rb.velocity, Vector3.up);
+    }
 }

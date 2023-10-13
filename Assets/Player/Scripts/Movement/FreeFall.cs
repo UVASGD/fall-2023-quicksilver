@@ -16,9 +16,6 @@ public class FreeFall : MonoBehaviour
     [Header("States")]
     public bool falling = false;
 
-    [Header("Falling")]
-    public float extraFallingForce;
-
     void Start()
     {
         pm = GetComponent<PlayerMovementStateMachine>();
@@ -42,16 +39,6 @@ public class FreeFall : MonoBehaviour
         //until landing on the ground
         while (falling && !pm.grounded)
         {
-            //awsd and horizontal drag handled in Move script
-            //TODO
-            //vertical drag (to create a falling terminal velocity)
-
-            //add extra downward force while moving down
-            if (rb.velocity.y < 0)
-            {
-                rb.AddForce(-transform.up * extraFallingForce * Time.deltaTime, ForceMode.Impulse);
-            }
-            
             yield return new WaitForFixedUpdate();
         }
 

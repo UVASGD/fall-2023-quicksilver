@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.26792946, g: 0.463935, b: 0.61439043, a: 1}
+  m_IndirectSpecularColor: {r: 0.26835054, g: 0.46414623, b: 0.6142409, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -42842,31 +42842,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerAndCamera
-      objectReference: {fileID: 0}
-    - target: {fileID: 5027770028730281826, guid: 2e28a9740ed3f419a872dbab00138cbb,
-        type: 3}
-      propertyPath: initialJumpForce
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 5027770028730281826, guid: 2e28a9740ed3f419a872dbab00138cbb,
-        type: 3}
-      propertyPath: jumpSustainForce
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5027770028730281826, guid: 2e28a9740ed3f419a872dbab00138cbb,
-        type: 3}
-      propertyPath: maxJumpSustainTime
-      value: 1.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7159750073794475638, guid: 2e28a9740ed3f419a872dbab00138cbb,
-        type: 3}
-      propertyPath: airDrag
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 7159750073794475638, guid: 2e28a9740ed3f419a872dbab00138cbb,
-        type: 3}
-      propertyPath: airMultipler
-      value: 0.144
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

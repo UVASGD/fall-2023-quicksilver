@@ -181,9 +181,10 @@ MonoBehaviour:
   forwardSpeed: 10
   strafeSpeed: 6
   backwardSpeed: 6
-  airMultipler: 0.024
+  airMultipler: 0.076
   groundDrag: 0.5
-  airDrag: 0.03
+  airDrag: 0.0028
+  verticalFallingDrag: 0
   stickToGround: 1
   stickingForce: 10
 --- !u!114 &5027770028730281826
@@ -200,9 +201,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumping: 0
   jumpKeyStillDown: 0
-  initialJumpForce: 15
-  maxJumpSustainTime: 1
-  jumpSustainForce: 15
+  initialJumpForce: 12
+  maxJumpSustainTime: 1.3
+  jumpSustainForce: 10
 --- !u!114 &7592896214088336059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,7 +217,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   falling: 0
-  extraFallingForce: 0
 --- !u!114 &5568525080542523195
 MonoBehaviour:
   m_ObjectHideFlags: 0
