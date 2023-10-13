@@ -176,12 +176,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f91c9ad812ddc459c98145121f698187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gravity: 9.81
+  downGravity: 12
   forwardSpeed: 10
   strafeSpeed: 6
   backwardSpeed: 6
-  airMultipler: 0.21
+  airMultipler: 0.024
   groundDrag: 0.5
-  airDrag: 0.15
+  airDrag: 0.03
   stickToGround: 1
   stickingForce: 10
 --- !u!114 &5027770028730281826
@@ -198,9 +200,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumping: 0
   jumpKeyStillDown: 0
-  initialJumpForce: 10
+  initialJumpForce: 15
   maxJumpSustainTime: 1
-  jumpSustainForce: 10
+  jumpSustainForce: 15
 --- !u!114 &7592896214088336059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,7 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   falling: 0
-  extraFallingForce: 8
+  extraFallingForce: 0
 --- !u!114 &5568525080542523195
 MonoBehaviour:
   m_ObjectHideFlags: 0

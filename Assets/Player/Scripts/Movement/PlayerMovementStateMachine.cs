@@ -55,6 +55,7 @@ public class PlayerMovementStateMachine : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         groundLayerMask = LayerMask.GetMask("whatIsGround");
+        grappleableLayerMask = LayerMask.GetMask("whatIsGrappleable");
     }
 
     void Update()

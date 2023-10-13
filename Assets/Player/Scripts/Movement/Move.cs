@@ -9,6 +9,10 @@ public class Move : MonoBehaviour
     private PlayerMovementStateMachine pm;
     private Rigidbody rb;
 
+    [Header("Gravity")]
+    public float gravity;
+    public float downGravity;
+
     [Header("Speeds")]
     public float forwardSpeed;
     public float strafeSpeed;
@@ -17,7 +21,7 @@ public class Move : MonoBehaviour
 
     [Header("Drags")]
     [Range(0, 1)] public float groundDrag;
-    [Range(0, 1)] public float airDrag;
+    [Range(0, 0.05f)] public float airDrag;
 
     [Header("Stick to Ground")]
     public bool stickToGround;
@@ -32,8 +36,15 @@ public class Move : MonoBehaviour
 
     private void FixedUpdate()
     {
+        ApplyGravity();
         MovePlayer();
         ApplyDrag();
+    }
+
+    private void ApplyGravity()
+    {
+        if (rb.velocity.y > 0) rb.AddForce(Vector3.down * gravity);
+        else rb.AddForce(Vector3.down * downGravity);
     }
 
     private void MovePlayer()
