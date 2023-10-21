@@ -8,6 +8,7 @@ public class Slide : MonoBehaviour
     //FROM when the slide button is pressed
     //UNTIL the slide button is released or the slide sustain runs out
     //By default transitions to FreeFall
+    // TODO: implement "Queue slide" feature - thomas
 
     private PlayerMovementStateMachine pm;
     private Rigidbody rb;
