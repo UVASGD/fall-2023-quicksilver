@@ -81,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
         walking,
         sprinting,
         wallRunning,
+        grappling,
         crouching,
         sliding,
         air
@@ -163,6 +164,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void StateHandler()
     {
+        //Mode - Grapppling (Handled in Swinging Script)
+        if (state == MovementState.grappling)
+        {
+            return;
+        }
         //Mode - WallRunning
         if (wallRunning)
         {
@@ -287,7 +293,10 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = new Vector3(rb.velocity.x *  airDrag, rb.velocity.y, rb.velocity.z * airDrag);
             }
 
-            rb.AddForce(moveDirection.normalized * moveSpeed * airMultiplier * 10f, ForceMode.Force);
+            Vector3 movDir = (state == MovementState.wallRunning || state == PlayerMovement.MovementState.grappling) ? 
+                moveDirection.normalized : moveDirection + (Vector3.down * 0.085f); // Makes falling just a lil snappier
+
+            rb.AddForce(movDir * moveSpeed * airMultiplier * 10f, ForceMode.Force);
         }
 
         //Disable Gravity On Slope (Prevents Sliding)

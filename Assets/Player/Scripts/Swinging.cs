@@ -15,7 +15,12 @@ public class Swinging : MonoBehaviour
     public Transform gunTip, cam, player;
     public LayerMask whatIsGrappleable;
     public PlayerCam pc;
+    private PlayerMovement pm;
 
+    private void Start()
+    {
+        pm = GetComponent<PlayerMovement>();
+    }
 
     private void Update()
     {
@@ -33,6 +38,7 @@ public class Swinging : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(cam.position, cam.forward, out hit, maxSwingDistance, whatIsGrappleable))
         {
+            pm.state = PlayerMovement.MovementState.grappling;
             swingPoint = hit.point;
             joint = player.gameObject.AddComponent<SpringJoint>();
             joint.autoConfigureConnectedAnchor = false;
@@ -41,8 +47,8 @@ public class Swinging : MonoBehaviour
             float distanceFromPoint = Vector3.Distance(player.position, swingPoint);
 
             // Range Grapple Will Try To Maintain
-            joint.maxDistance = distanceFromPoint * 0.8f;
-            joint.minDistance = distanceFromPoint * 0.25f;
+            joint.maxDistance = distanceFromPoint * 0.75f;
+            joint.minDistance = distanceFromPoint * 0.0f;
 
             joint.spring = 4.5f;
             joint.damper = 7f;
@@ -51,7 +57,7 @@ public class Swinging : MonoBehaviour
             lr.positionCount = 2;
             currentGrapplePosition = gunTip.position;
 
-            pc.DoFOV(90f);
+            pc.DoFOV(95f);
         }
     }
 
@@ -59,6 +65,7 @@ public class Swinging : MonoBehaviour
     {
         pc.DoFOV(pc.fov);
         lr.positionCount = 0;
+        pm.state = PlayerMovement.MovementState.air;
         Destroy(joint);
     }
 
