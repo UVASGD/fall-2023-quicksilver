@@ -41,11 +41,6 @@ public class PlayerMovement : MonoBehaviour
     private float airDrag = 1;
     private float startAirDrag;
 
-    [Header("Jump Tweaks")]
-    [SerializeField] private float jumpBoostTime = 1;
-    [SerializeField] private float jumpBoostPower = 30;
-    [SerializeField] private float jumpBoostEnd = 100;
-
     [Header("Crouching")]
     public float crouchSpeed;
     public float crouchYScale;
@@ -332,24 +327,8 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-        StartCoroutine("JumpSustain");
     }
-    IEnumerator JumpSustain()
-    {
-        float remainingJumpBoost = 0;
-        while(Input.GetKey(jumpKey) && remainingJumpBoost < jumpBoostTime && !sliding)
-        {
-            remainingJumpBoost += Time.deltaTime;
-            rb.AddForce(transform.up * jumpBoostPower * (jumpBoostTime - remainingJumpBoost) * Time.deltaTime, ForceMode.Impulse);
-            yield return new WaitForFixedUpdate();
-        }
 
-        while(!grounded)
-        {
-            rb.AddForce(-transform.up * jumpBoostEnd * Time.deltaTime);
-            yield return new WaitForFixedUpdate();
-        }
-    }
     private void ResetJump()
     {
         readyToJump = true;
