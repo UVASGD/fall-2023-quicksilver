@@ -41,11 +41,6 @@ public class PlayerMovement : MonoBehaviour
     private float airDrag = 1;
     private float startAirDrag;
 
-    [Header("Jump Tweaks")]
-    [SerializeField] private float jumpBoostTime = 1;
-    [SerializeField] private float jumpBoostPower = 30;
-    [SerializeField] private float jumpBoostEnd = 100;
-
     [Header("Crouching")]
     public float crouchSpeed;
     public float crouchYScale;
@@ -86,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
         walking,
         sprinting,
         wallRunning,
+        grappling,
         crouching,
         sliding,
         air
@@ -96,8 +92,6 @@ public class PlayerMovement : MonoBehaviour
         canSlide = true;
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-
-        //jump = GetComponent<Jump>();
 
         readyToJump = true;
 
@@ -123,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = 0;
 
         //Speed FX
-        if (rb.velocity.magnitude >= 12)
+        if (rb.velocity.magnitude >= 13)
         {
             ps.Play();
         }
@@ -149,7 +143,7 @@ public class PlayerMovement : MonoBehaviour
             readyToJump = false;
 
             Jump();
-            
+
             Invoke(nameof(ResetJump), jumpCooldown);
         }
 
@@ -170,6 +164,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void StateHandler()
     {
+        //Mode - Grapppling (Handled in Swinging Script)
+        if (state == MovementState.grappling)
+        {
+            return;
+        }
         //Mode - WallRunning
         if (wallRunning)
         {
@@ -216,7 +215,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Check If Desried Speed has Changed
-        if (Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 4f && moveSpeed != 0)
+        if (Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 2f && moveSpeed != 0)
         {
             StopAllCoroutines();
             StartCoroutine(LerpMoveSpeed());
@@ -227,7 +226,7 @@ public class PlayerMovement : MonoBehaviour
         }
         lastDesiredMoveSpeed = desiredMoveSpeed;
     }
-    //penis
+
     private IEnumerator LerpMoveSpeed() //Coroutine
     {
         //Interpolates movementSpeed to the Desired Value
@@ -288,15 +287,16 @@ public class PlayerMovement : MonoBehaviour
         else if (!grounded)
         {
             //Handle Air Drag If No Forward Input
-            /*if (verticalInput == 0)
+            if (verticalInput == 0)
             {
                 airDrag -= (airDecay * 0.01f);
                 rb.velocity = new Vector3(rb.velocity.x *  airDrag, rb.velocity.y, rb.velocity.z * airDrag);
-            }*/
+            }
 
-            rb.velocity = rb.velocity * (1-startAirDrag*Time.deltaTime);
+            Vector3 movDir = (state == MovementState.wallRunning || state == PlayerMovement.MovementState.grappling) ? 
+                moveDirection.normalized : moveDirection + (Vector3.down * 0.085f); // Makes falling just a lil snappier
 
-            rb.AddForce(moveDirection.normalized * moveSpeed * airMultiplier * 10f, ForceMode.Force);
+            rb.AddForce(movDir * moveSpeed * airMultiplier * 10f, ForceMode.Force);
         }
 
         //Disable Gravity On Slope (Prevents Sliding)
@@ -336,29 +336,8 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-        StartCoroutine("JumpSustain");
     }
-    IEnumerator JumpSustain()
-    {
-        float remainingJumpBoost = 0;
-        while(Input.GetKey(jumpKey) && remainingJumpBoost < jumpBoostTime && !sliding)
-        {
-            remainingJumpBoost += Time.deltaTime;
-            rb.AddForce(transform.up * jumpBoostPower * (jumpBoostTime - remainingJumpBoost) * Time.deltaTime, ForceMode.Impulse);
-            yield return new WaitForFixedUpdate();
-        }
 
-        while (rb.velocity.y > 0)
-        {
-            yield return new WaitForFixedUpdate();
-        }
-
-        while(!grounded)
-        {
-            rb.AddForce(-transform.up * jumpBoostEnd * Time.deltaTime);
-            yield return new WaitForFixedUpdate();
-        }
-    }
     private void ResetJump()
     {
         readyToJump = true;

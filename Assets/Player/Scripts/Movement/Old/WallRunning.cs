@@ -26,7 +26,9 @@ public class WallRunning : MonoBehaviour
     private RaycastHit rightWallHit;
     private bool wallLeft;
     private bool wallRight;
-    public int RaysToShoot = 8;
+    public int RaysToShoot = 16;
+    private int leftDetect;
+    private int rightDetect;
 
     [Header("Exiting")]
     public float exitWallTime;
@@ -51,11 +53,13 @@ public class WallRunning : MonoBehaviour
 
         wallRunTimer = maxWallRunTime;
         exitWallTimer = exitWallTime;
+        leftDetect = rightDetect = RaysToShoot / 2;
     }
 
     private void Update()
     {
         CheckForWall();
+        Debug.Log(wallLeft + "," + wallRight);
         StateMachine();
     }
 
@@ -78,12 +82,24 @@ public class WallRunning : MonoBehaviour
         {
             var dir = Quaternion.Euler(0, offset + i * delta, 0) * orientation.forward;
 
-            Debug.DrawRay(transform.position, dir, Color.red);
-            Debug.DrawRay(transform.position, -dir, Color.blue);
+            //This looks complicated, but essentially it makes it so if any of the rays hit than it counts as wall running (before it was they all had to hit)
+            if (!Physics.Raycast(transform.position, -dir, out rightWallHit, wallCheckDistance, whatIsWall) && leftDetect > 0)
+            {
+                leftDetect -= 1;
+            } else if (Physics.Raycast(transform.position, -dir, out rightWallHit, wallCheckDistance, whatIsWall) && leftDetect < (RaysToShoot / 2)) {
+                leftDetect += 1;
+            }
 
-            wallRight = Physics.Raycast(transform.position, dir, out rightWallHit, wallCheckDistance, whatIsWall);
-            wallLeft = Physics.Raycast(transform.position, -dir, out leftWallHit, wallCheckDistance, whatIsWall);
-        }         
+            if (!Physics.Raycast(transform.position, dir, out leftWallHit, wallCheckDistance, whatIsWall) && rightDetect > 0)
+            {
+                rightDetect -= 1;
+            } else if (Physics.Raycast(transform.position, dir, out leftWallHit, wallCheckDistance, whatIsWall) && rightDetect < (RaysToShoot / 2))
+            {
+                rightDetect += 1;
+            }
+        }
+        wallLeft = !(leftDetect == 0);
+        wallRight = !(rightDetect == 0);
     }
 
     private bool AboveGround()
