@@ -9,13 +9,12 @@ public class TestUI : MonoBehaviour
     public TextMeshProUGUI speed;
     public TextMeshProUGUI state;
 
-    public PlayerMovementStateMachine pm;
+    public PlayerMovement pm;
 
     private void Update()
     {
         float fullSpeed = Mathf.Round(pm.rb.velocity.magnitude * 100f) * 0.01f;
-        float horSpeed = Mathf.Round(Vector3.ProjectOnPlane(pm.rb.velocity, Vector3.up).magnitude * 100f) * 0.01f;
-        speed.text = "Speed: " + fullSpeed.ToString() + "HorSpeed: " + horSpeed.ToString();
+        speed.text = fullSpeed.ToString();
         state.text = pm.state.ToString();
     }
 }
