@@ -117,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = 0;
 
         //Speed FX
-        if (rb.velocity.magnitude >= 12)
+        if (rb.velocity.magnitude >= 13)
         {
             ps.Play();
         }
@@ -215,7 +215,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Check If Desried Speed has Changed
-        if (Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 4f && moveSpeed != 0)
+        if (Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 2f && moveSpeed != 0)
         {
             StopAllCoroutines();
             StartCoroutine(LerpMoveSpeed());
