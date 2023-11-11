@@ -140,7 +140,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.28119436, g: 0.6134239, b: 0.6698113, a: 1}
+    - _BaseColor: {r: 0.67058825, g: 0.59323084, b: 0.28235295, a: 1}
     - _CelRampTinting: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 0.28119433, g: 0.6134239, b: 0.6698113, a: 1}
     - _EmissionColor: {r: 0, g: 0.9815155, b: 0.990566, a: 1}

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class Swinging : MonoBehaviour
@@ -9,6 +10,9 @@ public class Swinging : MonoBehaviour
     private Vector3 swingPoint;
     private SpringJoint joint;
     private Vector3 currentGrapplePosition;
+
+    [Header("Flags")]
+    public bool inRange = false;
 
     [Header("References")]
     public LineRenderer lr;
@@ -24,6 +28,7 @@ public class Swinging : MonoBehaviour
 
     private void Update()
     {
+        inRange = CheckRange();
         if (Input.GetMouseButtonDown(0)) StartSwing();
         if (Input.GetMouseButtonUp(0)) StopSwing();
     }
@@ -31,6 +36,12 @@ public class Swinging : MonoBehaviour
     private void LateUpdate()
     {
         DrawRope();
+    }
+
+    private bool CheckRange()
+    {
+        RaycastHit hit;
+        return Physics.Raycast(cam.position, cam.forward, out hit, maxSwingDistance, whatIsGrappleable);
     }
 
     private void StartSwing()
