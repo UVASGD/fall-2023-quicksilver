@@ -73,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
     private bool readyToJump;
     public bool wallRunning;
     public bool canSlide;
+    public bool airDashing;
 
     public MovementState state;
 
@@ -164,7 +165,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void StateHandler()
     {
-        //Mode - Grapppling (Handled in Swinging Script)
+        //Mode - Grappling (Handled in Swinging Script)
         if (state == MovementState.grappling)
         {
             return;
