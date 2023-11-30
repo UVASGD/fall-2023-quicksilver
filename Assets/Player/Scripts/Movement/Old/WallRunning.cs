@@ -59,7 +59,6 @@ public class WallRunning : MonoBehaviour
     private void Update()
     {
         CheckForWall();
-        Debug.Log(wallLeft + "," + wallRight);
         StateMachine();
     }
 
