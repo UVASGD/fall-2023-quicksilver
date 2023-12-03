@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 5008025736850914292}
   - component: {fileID: 8583310114877928959}
   - component: {fileID: 9165714224117805071}
+  - component: {fileID: 1294777008395324489}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -192,6 +193,7 @@ MonoBehaviour:
   grounded: 0
   wallRunning: 0
   canSlide: 0
+  airDashing: 0
   state: 0
 --- !u!114 &6503852019958717309
 MonoBehaviour:
@@ -366,6 +368,22 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &1294777008395324489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184000776190471782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0233a5313d74af242a3b9fa836a04ca0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orientation: {fileID: 5118320356924823181}
+  playerObj: {fileID: 1568975112015680317}
+  dashForce: 10
+  dashUpwardForce: 5
 --- !u!1 &1383497000787976130
 GameObject:
   m_ObjectHideFlags: 0
