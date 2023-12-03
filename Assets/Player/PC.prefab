@@ -99,7 +99,6 @@ GameObject:
   - component: {fileID: 8583310114877928959}
   - component: {fileID: 9165714224117805071}
   - component: {fileID: 1294777008395324489}
-  - component: {fileID: 823937568342318360}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -165,11 +164,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpKey: 32
   sprintKey: 304
-  crouchKey: 99
   ps: {fileID: 7356350498238587336}
   walkSpeed: 12
   sprintSpeed: 15
-  slideSpeed: 30
+  slideSpeed: 35
   wallRunSpeed: 15
   moveSpeed: 0
   speedIncreaseMultiplier: 1.5
@@ -180,8 +178,6 @@ MonoBehaviour:
   jumpCooldown: 0.25
   airMultiplier: 0.5
   airDecay: 0.05
-  crouchSpeed: 3.5
-  crouchYScale: 0.5
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
@@ -210,7 +206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: {fileID: 5118320356924823181}
   playerObj: {fileID: 385968694590762455}
-  maxSlideTime: 0.8
+  maxSlideTime: 2.5
   slideForce: 300
   slideYScale: 0.5
   useDrag: 0
@@ -258,6 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70c6c0a94a18bbc498812a5bb12c4c50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSwingDistance: 32
   inRange: 0
   lr: {fileID: 9165714224117805071}
   gunTip: {fileID: 417932054739859344}
@@ -370,22 +367,6 @@ LineRenderer:
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
 --- !u!114 &1294777008395324489
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1184000776190471782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0233a5313d74af242a3b9fa836a04ca0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  orientation: {fileID: 5118320356924823181}
-  playerObj: {fileID: 1568975112015680317}
-  dashForce: 10
-  dashUpwardForce: 5
---- !u!114 &823937568342318360
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -6,7 +6,7 @@ using UnityEngine;
 public class Swinging : MonoBehaviour
 {
     [Header("Swinging")]
-    private float maxSwingDistance = 25f;
+    public float maxSwingDistance = 25f;
     private Vector3 swingPoint;
     private SpringJoint joint;
     private Vector3 currentGrapplePosition;

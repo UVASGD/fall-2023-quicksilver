@@ -8,7 +8,6 @@ public class PlayerMovement : MonoBehaviour
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
-    public KeyCode crouchKey = KeyCode.LeftControl;
 
     [Header("References")]
     public ParticleSystem ps;
@@ -41,9 +40,7 @@ public class PlayerMovement : MonoBehaviour
     private float airDrag = 1;
     private float startAirDrag;
 
-    [Header("Crouching")]
-    public float crouchSpeed;
-    public float crouchYScale;
+    [Header("Not anymore but Crouching")]
     private float startYScale;
 
     [Header("Ground Check")]
@@ -83,7 +80,6 @@ public class PlayerMovement : MonoBehaviour
         sprinting,
         wallRunning,
         grappling,
-        crouching,
         sliding,
         air
     }
@@ -147,20 +143,6 @@ public class PlayerMovement : MonoBehaviour
 
             Invoke(nameof(ResetJump), jumpCooldown);
         }
-
-
-        //CROUCH
-        if(Input.GetKeyDown(crouchKey))
-        {
-            transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
-            rb.AddForce(Vector3.down * 5f, ForceMode.Impulse); //Makes Sure Player isn't hovering after crouching
-        }
-
-        //Release Crouch
-        if(Input.GetKeyUp(crouchKey))
-        {
-            transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
-        }
     }
 
     private void StateHandler()
@@ -185,13 +167,6 @@ public class PlayerMovement : MonoBehaviour
                 desiredMoveSpeed = slideSpeed;
             else
                 desiredMoveSpeed = sprintSpeed;
-        }
-
-        //Mode - Crouching
-        else if (Input.GetKey(crouchKey))
-        {
-            state = MovementState.crouching;
-            desiredMoveSpeed = crouchSpeed;
         }
 
         //Mode - Sprinting
