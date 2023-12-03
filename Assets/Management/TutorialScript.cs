@@ -9,6 +9,7 @@ public class TutorialScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.gameObject.name);
         if (other.gameObject.tag == "Player")
             director.Play();
     }
