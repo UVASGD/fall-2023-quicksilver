@@ -86,7 +86,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        state = MovementState.walking;
+
+        sliding = false;
         canSlide = true;
+
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
@@ -95,6 +99,8 @@ public class PlayerMovement : MonoBehaviour
         startYScale = transform.localScale.y;
 
         startAirDrag = airDrag;
+
+        ps.Play();
     }
 
     private void Update()
@@ -116,11 +122,11 @@ public class PlayerMovement : MonoBehaviour
         //Speed FX
         if (rb.velocity.magnitude >= 13)
         {
-            ps.Play();
+            ps.enableEmission = true;
         }
         else
         {
-            ps.Stop();
+            ps.enableEmission = false;
         }
     }
 
@@ -191,7 +197,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Check If Desried Speed has Changed
-        if (Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 2f && moveSpeed != 0)
+        if (Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 3.5f && moveSpeed != 0)
         {
             StopAllCoroutines();
             StartCoroutine(LerpMoveSpeed());

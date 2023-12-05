@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/NonLevel/EndSceen.unity
     guid: 8336ee5ba599244c1bf0094466f7be8c
+  - enabled: 1
+    path: Assets/Scenes/InDevelopment/Nate/Tutorial.unity
+    guid: d88bac2008d64c3449a593e9753cc7cd
   m_configObjects: {}
