@@ -6,21 +6,24 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/NonLevel/MainMenu.unity
-    guid: cc7bcfb6532be429c879b4a4980443a7
-  - enabled: 0
-    path: Assets/Scenes/Done/Level1.unity
-    guid: 36d6a3fac3e3949a9976e043eba9e133
-  - enabled: 0
-    path: Assets/Scenes/NonLevel/LevelSelect.unity
-    guid: 964a616921880d443aa71d395e7ac766
+    path: Assets/Scenes/MainMenu.unity
+    guid: 92538ccd3d5c6c946ba6ef5ce5ab6186
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: d88bac2008d64c3449a593e9753cc7cd
+  - enabled: 1
+    path: Assets/Scenes/Level_02.unity
+    guid: 0ee87b8d9488cca4387c2c889b2bd7bd
+  - enabled: 1
+    path: Assets/Scenes/Level_03.unity
+    guid: ba7962acc20e3a144bf90ae7eddcec19
+  - enabled: 1
+    path: Assets/Scenes/Level_04.unity
+    guid: 179b4aefeea764074aa654770618d3c8
+  - enabled: 1
+    path: Assets/Scenes/Level_05.unity
+    guid: 44611fc421f20de4b9f360dd3123304c
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
-    path: Assets/Scenes/NonLevel/EndSceen.unity
-    guid: 8336ee5ba599244c1bf0094466f7be8c
-  - enabled: 1
-    path: Assets/Scenes/InDevelopment/Nate/Tutorial.unity
-    guid: d88bac2008d64c3449a593e9753cc7cd
   m_configObjects: {}

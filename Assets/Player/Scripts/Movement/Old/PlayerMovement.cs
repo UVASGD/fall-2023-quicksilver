@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -148,6 +149,11 @@ public class PlayerMovement : MonoBehaviour
             Jump();
 
             Invoke(nameof(ResetJump), jumpCooldown);
+        }
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(0);
         }
     }
 

@@ -61,7 +61,7 @@ public static class FileHandler
 
         using (StreamWriter writer = new StreamWriter(fileStream))
         {
-            Debug.Log("?");
+            Debug.Log(path);
             writer.Write(content);
         }
     }

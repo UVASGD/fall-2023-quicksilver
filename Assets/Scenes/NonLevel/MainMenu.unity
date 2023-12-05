@@ -222,6 +222,7 @@ RectTransform:
   - {fileID: 1118061377}
   - {fileID: 1782802728}
   - {fileID: 1554267813}
+  - {fileID: 934107768}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -103.965, z: 0}
@@ -981,7 +982,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2080468997}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: Quit
         m_Mode: 1
@@ -1252,7 +1253,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2080468997}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: Back
         m_Mode: 1
@@ -1386,7 +1387,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2080468997}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: LevelSelect
         m_Mode: 1
@@ -1571,7 +1572,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1799448565}
   m_CullTransparentMesh: 1
-
 --- !u!1 &2080468996
 GameObject:
   m_ObjectHideFlags: 0
@@ -1581,7 +1581,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2080468998}
-  - component: {fileID: 2080468997}
   m_Layer: 0
   m_Name: MainMenu
   m_TagString: Untagged
@@ -1589,23 +1588,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2080468997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2080468996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36ac60871c42042b6bbadc8438625854, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StartButton: {fileID: 2104582609}
-  BackButton: {fileID: 1554267812}
-  LevelButtons:
-  - {fileID: 1782802727}
-  QuitButton: {fileID: 1118061376}
 --- !u!4 &2080468998
 Transform:
   m_ObjectHideFlags: 0
@@ -1840,7 +1822,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2080468997}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: StartGame
         m_Mode: 1

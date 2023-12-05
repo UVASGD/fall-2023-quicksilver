@@ -20,6 +20,7 @@ public class HighscoreHandler : MonoBehaviour
 
     private void LoadHighscores(int level_id)
     {
+        filename += "_" + SceneManager.GetActiveScene().buildIndex.ToString() + ".json";
         List<HighscoreElement> tempList = FileHandler.ReadListFromJSON<HighscoreElement>(filename);
         
         for (int i = 0; i < tempList.Count; i++)
